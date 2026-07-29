@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from articles.models import Article, Tag, ArticleTag
+from articles.models import Article, Tag, ArticleTag, Comment, CommentLike, ArticleLike
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -13,3 +13,6 @@ class ArticleAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag)
 admin.site.register(ArticleTag)
+admin.site.register(ArticleLike)
+admin.site.register(Comment)
+admin.site.register(CommentLike)
