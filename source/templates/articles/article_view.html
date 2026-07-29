@@ -25,6 +25,12 @@
             <a href="{% url 'articles:delete' article.pk %}" class="btn btn-outline-danger">
                 <i class="fa-regular fa-trash-can"></i>
             </a>
+            <span id="count-{{ article.pk }}"></span>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'articles:api-article-like' article.pk %}" class="btn" data-key="likes" data-counter-id="count-{{ article.pk }}">
+                    <i class="bi bi-hand-thumbs-up"></i>
+                </a>
+            {% endif %}
 {#            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#article-{{ article.pk }}-Modal">#}
 {#                <span>Удалить</span><i class="fa-regular fa-trash-can ms-2"></i>#}
 {#            </button>#}

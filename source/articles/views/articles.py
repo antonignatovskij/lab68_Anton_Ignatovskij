@@ -3,13 +3,13 @@ from urllib.parse import urlencode
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http.response import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from articles.forms import ArticleForm, SimpleSearchForm, ArticleDeleteForm
-from articles.models import Article
+from articles.models import Article, ArticleLike
 
 
 class ArticleListView(ListView):
@@ -95,7 +95,15 @@ class ArticleDeleteView(DeleteView):
     #     article.delete()
     #     return redirect("list")
 
-class ArticlesTest(View):
+class ArticleLikeView(View):
     def get(self, request, *args, **kwargs):
-        print(request.user.id)
-        return JsonResponse({"user": request.user.id})
+        article = get_object_or_404(Article, pk=self.kwargs["pk"])
+        like = ArticleLike.objects.filter(article=article,user=request.user).first()
+        if like:
+            like.delete()
+            liked = False
+        else:
+            ArticleLike.objects.create(article=article,user=request.user)
+            liked = True
+        return JsonResponse({"liked": liked, "likes_count": article.likes.count()
+        })

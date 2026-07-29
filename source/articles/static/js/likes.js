@@ -17,13 +17,19 @@ async function makeRequest(url, method = "GET") {
 
 async function onClick(event) {
     event.preventDefault();
-    like = 1
-    let link = event.target;
+    let link = event.currentTarget;
     let counterId = link.dataset.counterId;
     let counter = document.getElementById(counterId)
     let url = link.href;
-    counter.innerText = 'response.test';
-    link.innerHTML = '<i class="bi bi-hand-thumbs-up-fill"></i>'
+
+    let response = await makeRequest(url)
+    counter.innerText = response.likes_count;
+    if (response.liked){
+        link.innerHTML = '<i class="bi bi-hand-thumbs-up-fill"></i>'
+    }
+    else {
+        link.innerHTML = '<i class="bi bi-hand-thumbs-up"></i>'
+    }
 
 }
 

@@ -39,9 +39,11 @@
 {#                            <i class="fa-regular fa-trash-can"></i>#}
 {#                        </button>#}
                         <span id="count-{{ article.pk }}"></span>
-                        <a href="{% url 'articles:api-test' article.pk %}" class="btn btn-outline-primary" data-key="likes" data-counter-id="count-{{ article.pk }}">
-                            <i class="bi bi-hand-thumbs-up"></i>
-                        </a>
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'articles:api-article-like' article.pk %}" class="btn" data-key="likes" data-counter-id="count-{{ article.pk }}">
+                                <i class="bi bi-hand-thumbs-up"></i>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </a>
