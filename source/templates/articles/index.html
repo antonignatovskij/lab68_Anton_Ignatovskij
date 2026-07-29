@@ -38,6 +38,10 @@
 {#                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#article-{{ article.pk }}-Modal">#}
 {#                            <i class="fa-regular fa-trash-can"></i>#}
 {#                        </button>#}
+                        <span id="count-{{ article.pk }}"></span>
+                        <a href="{% url 'articles:api-test' article.pk %}" class="btn btn-outline-primary" data-key="likes" data-counter-id="count-{{ article.pk }}">
+                            <i class="bi bi-hand-thumbs-up"></i>
+                        </a>
                     </div>
                 </div>
             </a>

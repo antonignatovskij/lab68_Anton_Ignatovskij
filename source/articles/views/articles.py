@@ -2,6 +2,7 @@ from urllib.parse import urlencode
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -71,10 +72,10 @@ class ArticleUpdateView(UpdateView):
     template_name = "articles/article_update.html"
     form_class = ArticleForm
     model = Article
-    # queryset = Article.objects.all()
+    queryset = Article.objects.all()
 
-    # def get_success_url(self):
-    #     return reverse("detail", kwargs={"pk": self.object.pk})
+    def get_success_url(self):
+        return reverse("articles:detail", kwargs={"pk": self.object.pk})
 
 class ArticleDeleteView(DeleteView):
     template_name = "articles/delete_confirm.html"
@@ -93,3 +94,8 @@ class ArticleDeleteView(DeleteView):
     #     article = get_object_or_404(Article, pk=self.kwargs.get('pk'))
     #     article.delete()
     #     return redirect("list")
+
+class ArticlesTest(View):
+    def get(self, request, *args, **kwargs):
+        print(request.user.id)
+        return JsonResponse({"user": request.user.id})

@@ -14,4 +14,4 @@ class Comment(BaseModel):
         return self.text[:20]
 
     def get_absolute_url(self):
-        return reverse("detail", kwargs={"pk": self.article.pk})
+        return reverse("articles:detail", kwargs={"pk": self.article.pk})
