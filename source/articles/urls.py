@@ -8,6 +8,7 @@ from articles.views import (
     ArticleUpdateView,
     CommentCreateView,
     ArticleLikeView,
+    CommentLikeView,
 )
 
 app_name = "articles"
@@ -19,4 +20,5 @@ urlpatterns = [
     path("article/<int:pk>/delete/", ArticleDeleteView.as_view(), name="delete"),
     path("article/<int:pk>/comment-add/", CommentCreateView.as_view(), name="comment-create"),
     path("article/<int:pk>/api-article-like/", ArticleLikeView.as_view(), name="api-article-like"),
+    path("article/<int:pk>/api-comment-like/", CommentLikeView.as_view(), name="api-comment-like"),
 ]
