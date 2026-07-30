@@ -1,6 +1,6 @@
 import json
-
-from django.http.response import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http.response import JsonResponse, HttpResponse, HttpResponseNotAllowed
 from django.views.generic.base import View
 
 
@@ -70,3 +70,8 @@ class CalculateView(View):
         else:
             return {"error": "No 'a' or 'b' in your body keys"}
 
+@ensure_csrf_cookie
+def get_token_view(request, *args, **kwargs):
+    if request.method == 'GET':
+        return HttpResponse()
+    return HttpResponseNotAllowed('Only GET request are allowed')
