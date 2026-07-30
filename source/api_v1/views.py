@@ -7,7 +7,7 @@ from django.views.generic.base import View
 # Create your views here.
 
 class CalculateView(View):
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if request.body:
             body = json.loads(request.body)
             if 'add' in request.path.split('/'):
@@ -22,6 +22,9 @@ class CalculateView(View):
                 answer = {"error": 'wrong path'}
         else:
             answer = {"error": "nothing"}
+
+        if 'error' in answer:
+            return JsonResponse(answer, status=400)
         return JsonResponse(answer)
 
 

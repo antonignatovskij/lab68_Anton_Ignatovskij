@@ -18,16 +18,16 @@
                 </div>
                 <hr class="my-4">
                 <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <a href="#" class="btn btn-success btn-lg px-4">+</a>
-                    <a href="#" class="btn btn-danger btn-lg px-4">-</a>
-                    <a href="#" class="btn btn-warning btn-lg px-4">*</a>
-                    <a href="#" class="btn btn-info btn-lg px-4 text-white">/</a>
+                    <a href="{% url 'api_v1:api_add' %}" class="btn btn-success btn-lg px-4" data-key="calclink">+</a>
+                    <a href="{% url 'api_v1:api_subtract' %}" class="btn btn-danger btn-lg px-4" data-key="calclink">-</a>
+                    <a href="{% url 'api_v1:api_multiply' %}" class="btn btn-warning btn-lg px-4" data-key="calclink">*</a>
+                    <a href="{% url 'api_v1:api_divide' %}" class="btn btn-info btn-lg px-4 text-white" data-key="calclink">/</a>
                 </div>
             </div>
             <div class="card-footer bg-light py-4">
                 <div class="text-center">
                     <h5 class="text-secondary mb-3">Результат</h5>
-                    <div class="border rounded-3 bg-white shadow-sm p-3 fs-3 fw-bold text-primary">
+                    <div id="calculate-result" class="border rounded-3 bg-white shadow-sm p-3 fs-3 fw-bold text-primary">
                         0
                     </div>
                 </div>
