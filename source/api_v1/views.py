@@ -11,17 +11,17 @@ class CalculateView(View):
         if request.body:
             body = json.loads(request.body)
             if 'add' in request.path.split('/'):
-                answer = {"answer": self.add_number(body)}
+                answer = self.add_number(body)
             elif 'subtract' in request.path.split('/'):
-                answer = {"answer": self.subtract(body)}
+                answer = self.subtract(body)
             elif 'multiply' in request.path.split('/'):
-                answer = {"answer": self.multiply(body)}
+                answer = self.multiply(body)
             elif 'divide' in request.path.split('/'):
-                answer = {"answer": self.divide(body)}
+                answer = self.divide(body)
             else:
-                answer = {"answer": 'wrong path'}
+                answer = {"error": 'wrong path'}
         else:
-            answer = {"answer": "nothing"}
+            answer = {"error": "nothing"}
         return JsonResponse(answer)
 
 
@@ -29,41 +29,41 @@ class CalculateView(View):
         required_keys = ["a", "b"]
         if all(key in body for key in required_keys):
             try:
-                return body['a'] + body['b']
+                return {"answer": body['a'] + body['b']}
             except TypeError:
-                return 'concatenate str is impossible'
+                return {"error": 'concatenate str is impossible'}
         else:
-            return "No 'a' or 'b' in your body keys"
+            return {"error": "No 'a' or 'b' in your body keys"}
 
     def subtract(self, body):
         required_keys = ["a", "b"]
         if all(key in body for key in required_keys):
             try:
-                return body['a'] - body['b']
+                return {"answer": body['a'] - body['b']}
             except TypeError:
-                return 'suptract str is impossible'
+                return {"error": 'subtract str is impossible'}
         else:
-            return "No 'a' or 'b' in your body keys"
+            return {"error": "No 'a' or 'b' in your body keys"}
 
     def multiply(self, body):
         required_keys = ["a", "b"]
         if all(key in body for key in required_keys):
             try:
-                return body['a'] * body['b']
+                return {"answer": body['a'] * body['b']}
             except TypeError:
-                return 'multiply str is impossible'
+                return {"error": 'multiply str is impossible'}
         else:
-            return "No 'a' or 'b' in your body keys"
+            return {"error": "No 'a' or 'b' in your body keys"}
 
     def divide(self, body):
         required_keys = ["a", "b"]
         if all(key in body for key in required_keys):
             try:
-                return body['a'] / body['b']
+                return {"answer": body['a'] / body['b']}
             except TypeError:
-                return 'divide str is impossible'
+                return {"error": 'divide str is impossible'}
             except ZeroDivisionError:
-                return "division by zero"
+                return {"error": "division by zero"}
         else:
-            return "No 'a' or 'b' in your body keys"
+            return {"error": "No 'a' or 'b' in your body keys"}
 
