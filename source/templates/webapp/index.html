@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card ">
+            <div class="card-header text-center py-4">
+                <h2 class="mb-0"><i class="bi bi-calculator me-2"></i>Калькулятор</h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <input type="number" class="form-control form-control-lg text-center" name="a" placeholder="Первое число">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control form-control-lg text-center" name="b" placeholder="Второе число">
+                    </div>
+                </div>
+                <hr class="my-4">
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <a href="{% url 'api_v1:api_add' %}" class="btn btn-success btn-lg px-4" data-key="calclink">+</a>
+                    <a href="{% url 'api_v1:api_subtract' %}" class="btn btn-danger btn-lg px-4" data-key="calclink">-</a>
+                    <a href="{% url 'api_v1:api_multiply' %}" class="btn btn-warning btn-lg px-4" data-key="calclink">*</a>
+                    <a href="{% url 'api_v1:api_divide' %}" class="btn btn-info btn-lg px-4 text-white" data-key="calclink">/</a>
+                </div>
+            </div>
+            <div class="card-footer bg-light py-4">
+                <div class="text-center">
+                    <h5 class="text-secondary mb-3">Результат</h5>
+                    <div id="calculate-result" class="border rounded-3 bg-white shadow-sm p-3 fs-3 fw-bold text-primary">
+                        0
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
