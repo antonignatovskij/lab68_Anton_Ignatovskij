@@ -9,5 +9,4 @@ __all__ = [
     'Comment',
     'Tag',
     'ArticleTag',
-    'Comment'
 ]
