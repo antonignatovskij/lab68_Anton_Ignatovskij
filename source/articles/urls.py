@@ -8,7 +8,7 @@ from articles.views import (
     ArticleUpdateView,
     CommentCreateView,
     ArticleLikeView,
-    CommentLikeView,
+    CommentLikeView
 )
 
 app_name = "articles"

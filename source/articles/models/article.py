@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
 
@@ -20,10 +21,11 @@ class Article(BaseModel):
         blank=True,
         verbose_name="Описание"
     )
-    author = models.CharField(
-        max_length=100,
-        null=False,
-        blank=False,
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="articles",
         verbose_name="Автор"
     )
     created_at = models.DateTimeField(
@@ -48,6 +50,11 @@ class Article(BaseModel):
         through_fields=("article", "tag"),
         verbose_name="Теги"
     )
+    likes = models.ManyToManyField(
+        get_user_model(),
+        blank=True,
+        related_name="liked_articles",
+    )
 
     def __str__(self):
         return self.title
@@ -58,7 +65,7 @@ class Article(BaseModel):
         verbose_name_plural = "Статьи"
 
     def get_absolute_url(self):
-        return reverse("detail", kwargs={"pk": self.pk})
+        return reverse("articles:detail", kwargs={"pk": self.pk})
 
 class ArticleTag(BaseModel):
     article = models.ForeignKey(

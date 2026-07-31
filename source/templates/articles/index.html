@@ -25,7 +25,7 @@
                         <p class="card-text">
                             {% if article.content %}{{ article.content|truncatewords:5 }}{% else %}---{% endif %}</p>
                         <p>Статус: {{ article.get_status_display }}</p>
-                        <span>Автор: {% if article.author %}{{ article.author }}{% else %}---{% endif %}</span>
+                        <span>Автор: {% if article.author %}{{ article.author.username }}{% else %}---{% endif %}</span>
                         <span>Блог: {% if article.blog %}{{ article.blog.title }}{% else %}---{% endif %}</span>
                     </div>
                     <div class="text-end me-3">
@@ -38,7 +38,9 @@
 {#                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#article-{{ article.pk }}-Modal">#}
 {#                            <i class="fa-regular fa-trash-can"></i>#}
 {#                        </button>#}
-                        <span id="count-{{ article.pk }}"></span>
+                        <span id="count-{{ article.pk }}">
+                            {{ article.likes.count }}
+                        </span>
                         {% if request.user.is_authenticated %}
                             <a href="{% url 'articles:api-article-like' article.pk %}" class="btn" data-key="likes" data-counter-id="count-{{ article.pk }}">
                                 <i class="bi bi-hand-thumbs-up"></i>

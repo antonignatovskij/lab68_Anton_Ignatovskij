@@ -15,7 +15,7 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
-async function makeRequest(url, method = "GET", body) {
+async function makeRequest(url, method = "POST", body) {
     let headers = {
         'Content-type': 'application/json',
         'X-CSRFToken': csrftoken
@@ -45,7 +45,7 @@ async function onClick(event) {
         counter.classList.add('text-success')
         counter.innerText = response.answer;
     } else if ("error" in response) {
-        if (counter.classList.contains('text-success')) {counter.classList.remove('text-text-success')}
+        if (counter.classList.contains('text-success')) {counter.classList.remove('text-success')}
         counter.classList.add('text-danger')
         counter.innerText = response.error;
     }
