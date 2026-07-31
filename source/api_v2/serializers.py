@@ -17,3 +17,17 @@ class ArticleSerializer(serializers.ModelSerializer):
             if len(value) < 5:
                 raise ValidationError("Title must be at least 5 characters")
             return value
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ["id", "article", "text", "author"]
+        read_only_fields = ["id", "article"]
+
+        def validate(self, data):
+            return super().validate(data)
+
+        def validate_text(self, value):
+            if len(value) < 10:
+                raise ValidationError("Message must be at least 10 characters")
+            return value

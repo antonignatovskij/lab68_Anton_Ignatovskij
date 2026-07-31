@@ -38,7 +38,9 @@
 {#                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#article-{{ article.pk }}-Modal">#}
 {#                            <i class="fa-regular fa-trash-can"></i>#}
 {#                        </button>#}
-                        <span id="count-{{ article.pk }}"></span>
+                        <span id="count-{{ article.pk }}">
+                            {{ article.likes.count }}
+                        </span>
                         {% if request.user.is_authenticated %}
                             <a href="{% url 'articles:api-article-like' article.pk %}" class="btn" data-key="likes" data-counter-id="count-{{ article.pk }}">
                                 <i class="bi bi-hand-thumbs-up"></i>
