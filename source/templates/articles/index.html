@@ -25,7 +25,7 @@
                         <p class="card-text">
                             {% if article.content %}{{ article.content|truncatewords:5 }}{% else %}---{% endif %}</p>
                         <p>Статус: {{ article.get_status_display }}</p>
-                        <span>Автор: {% if article.author %}{{ article.author }}{% else %}---{% endif %}</span>
+                        <span>Автор: {% if article.author %}{{ article.author.username }}{% else %}---{% endif %}</span>
                         <span>Блог: {% if article.blog %}{{ article.blog.title }}{% else %}---{% endif %}</span>
                     </div>
                     <div class="text-end me-3">

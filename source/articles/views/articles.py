@@ -9,7 +9,7 @@ from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from articles.forms import ArticleForm, SimpleSearchForm, ArticleDeleteForm
-from articles.models import Article, ArticleLike
+from articles.models import Article
 
 
 class ArticleListView(ListView):
@@ -59,7 +59,7 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.filter(author='asdqwe')
+        context['comments'] = self.object.comments.all()
         return context
 
 
@@ -97,13 +97,15 @@ class ArticleDeleteView(DeleteView):
 
 class ArticleLikeView(View):
     def get(self, request, *args, **kwargs):
-        article = get_object_or_404(Article, pk=self.kwargs["pk"])
-        like = ArticleLike.objects.filter(article=article,user=request.user).first()
-        if like:
-            like.delete()
+        article = get_object_or_404(
+            Article, pk=self.kwargs["pk"])
+        if article.likes.filter(pk=request.user.pk).exists():
+            article.likes.remove(request.user)
             liked = False
         else:
-            ArticleLike.objects.create(article=article,user=request.user)
+            article.likes.add(request.user)
             liked = True
-        return JsonResponse({"liked": liked, "likes_count": article.likes.count()
+        return JsonResponse({
+            "liked": liked,
+            "likes_count": article.likes.count()
         })

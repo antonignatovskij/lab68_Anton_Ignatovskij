@@ -9,7 +9,7 @@ from articles.models import Article, Comment
 class ArticleForm(ModelForm):
     class Meta:
         model = Article
-        fields = ["title", "content", "author", "tags"]
+        fields = ["title", "content", "tags"]
         widgets = {
             'tags': CheckboxSelectMultiple(),
         }
